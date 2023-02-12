@@ -8,9 +8,24 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/
 """
 
 import os
-
+import pathlib
+import dotenv
+import fcntl
+from waitress import serve
 from django.core.wsgi import get_wsgi_application
+
+from app.wsgi import application
+
+
+CURRENT_DIR = pathlib.Path(__file__).resolve.parent
+BASE_DIR = CURRENT_DIR.parent
+ENV_FILE_PATH = BASE_DIR / ".env"
+
+dotenv.read_dotenv(str(ENV_FILE_PATH))
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_k8s.settings')
 
+
+
 application = get_wsgi_application()
+#serve(application, port=args.port)
