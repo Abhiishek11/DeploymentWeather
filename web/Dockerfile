@@ -10,10 +10,13 @@ RUN python -m venv /opt/venv
 
 
 #Error because gunicorn doest not support windows
-RUN /opt/venv/bin/pip install pip --upgrade
-RUN /opt/venv/bin/pip install -r requirements.txt 
+RUN /opt/venv/bin/pip install pip --upgrade && \
+    /opt/venv/bin/pip install -r requirements.txt && \
+    chmod +x entrypoint.sh
 
-RUN chmod +x entrypoint.sh
+CMD ["/app/entrypoint.sh"]
 
-CMD["/app/entrypoint.sh"]
+
+
+
 
